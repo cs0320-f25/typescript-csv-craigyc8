@@ -88,11 +88,14 @@
         As a user, I want to be able to ensure that the CSV I am parsing can
         detect any fields that don't fit within the specific type structure that
         I desire. I don't want the parser to accept a string where I want an
-        integer.
+        integer. This is so I can ensure that the data I am putting in is
+        unified in type.
     2 (Functionality, from LLM): custom delimiters other than commas
         As a user, I want the parser I am using to be compatible with all the
         data files that I have. So I would like to be able to use files that
         not only use commas to separate values, but also tabs or semicolons.
+        This is so I can use more formats of CSV's without having to change
+        their delimiters.
     3 (Functionality, from LLM): streaming support
         As a user, if I have a large file, I don't want to have to load it all
         at once and I want my parser to be able to stream the file so I don't
@@ -126,16 +129,54 @@
 ### 1340 Supplement
 
 - #### 1. Correctness
+    A CSV parser is correct when it is able to generate errors to send back to
+    the caller, it should be able to handle different types of delimiters, it is
+    able to deal with edge cases like not having a defined schema sent to it,
+    and it has flexible input.
 
 - #### 2. Random, On-Demand Generation
+    If we had access to a function that randomly produced CSV data on demand,
+    depending on how random it really was, we could use it to catch all types of
+    edge cases dependent on how different each CSV file was from one another (
+    how random the CSVs really were). For example, these produced CSV files
+    could vary on delimiters, types, error in how they were created, etc. With
+    this randomness, are function is exposed to all different types of edge
+    cases and we can use that to have more expansive testing.
 
 - #### 3. Overall experience, Bugs encountered and resolved
+    Task 3 was tricky for me, as I was trying to learn a new language while also
+    trying to understand zod. I realized that the reason that I was struggling
+    was because I hadn't read the types reading. After I read that, things
+    became a lot more clear. I am still confused a bit on certain terms and the
+    difference between TypeScript and JavaScript, but I feel a lot more
+    confident now. Some bugs I ran into mainly involved types and understanding
+    how types were handled and assumed. Something that I wish I did was make
+    more commits. I only made one commit at the start to see how to GradeScope
+    worked but after that I didn't make any new ones. Looking at the "Grading"
+    section of the handout, I see now that we were supposed to have "meaningful
+    commit messages" which I don't have but will remember to have for future
+    sprints.
+
 #### Errors/Bugs:
+    the basic-parser.test.ts has failed tests that hopefully can be addressed
+    in Sprint 2
 #### Tests:
+    basic-parser.test.ts:
+        The original parseCSV function is able to deal with empty columns and
+        whitespace, but it fails to deal with double quotes and commas
+        correctly. These can be addressed in Sprint 2.
+    new-parser.test.ts:
+        The tests I wrote ensure that the parseCSV function I wrote satisfies
+        the requirements from the handout but that it also passes the tests that
+        the original parseCSV function passed in the other test file. It
+        addresses basic functionality, a returning on an error, having an
+        undefined schema, different types of schemas like integer only or string
+        only, and dealing with empty columns and whitespace.
 #### How To…
+    You can run the tests by using npm test.
 
-#### Team members and contributions (include cs logins):
+#### Team members and contributions (include cs logins): N/A
 
-#### Collaborators (cslogins of anyone you worked with on this project and/or generative AI):
-#### Total estimated time it took to complete project:
-#### Link to GitHub Repo:  
+#### Collaborators (cslogins of anyone you worked with on this project and/or generative AI): I used CoPilot.
+#### Total estimated time it took to complete project: 4-5 hours
+#### Link to GitHub Repo: https://github.com/cs0320-f25/typescript-csv-craigyc8.git
